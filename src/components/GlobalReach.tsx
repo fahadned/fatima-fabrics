@@ -1,23 +1,8 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ComposableMap, Geographies, Geography } from "react-simple-maps";
-
 const EASE = [0.22, 1, 0.36, 1] as const;
-
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
-
-const HIGHLIGHTED_IDS = new Set([
-  "276", "250", "380", "724", "56", "528",
-  "756", "40", "752", "208", "616", "826",
-]);
-
-const COUNTRY_NAMES: Record<string, string> = {
-  "276": "Germany", "250": "France", "380": "Italy", "724": "Spain",
-  "56": "Belgium", "528": "Netherlands", "756": "Switzerland", "40": "Austria",
-  "752": "Sweden", "208": "Denmark", "616": "Poland", "826": "United Kingdom",
-};
 
 const PLATFORMS = [
   "Alibaba","Global Sources","TradeKey","Made-in-Pakistan",
@@ -75,80 +60,6 @@ function MarqueeBar({ label, items, reverse }: { label: string; items: string[];
           {content}
         </div>
       </div>
-    </div>
-  );
-}
-
-function EuropeMap() {
-  const [hovered, setHovered] = useState("");
-
-  return (
-    <div style={{ position: "relative", width: "100%", maxWidth: 800, margin: "0 auto" }}>
-      <ComposableMap
-        projection="geoAzimuthalEqualArea"
-        projectionConfig={{ rotate: [-10, -52, 0], scale: 800 }}
-        style={{ width: "100%", height: 500 }}
-      >
-        <Geographies geography={GEO_URL}>
-          {({ geographies }) =>
-            geographies.map((geo) => {
-              const id = geo.id as string;
-              const isActive = HIGHLIGHTED_IDS.has(id);
-              const isHovered = hovered === id;
-              return (
-                <Geography
-                  key={geo.rsmKey}
-                  geography={geo}
-                  onMouseEnter={() => { if (isActive) setHovered(id); }}
-                  onMouseLeave={() => setHovered("")}
-                  style={{
-                    default: {
-                      fill: isActive ? "#B8955A" : "#1C1C1A",
-                      opacity: isActive ? 0.85 : 1,
-                      stroke: isActive ? "#CCB074" : "#2a2a28",
-                      strokeWidth: 0.5,
-                      outline: "none",
-                      transition: "fill 0.25s, opacity 0.25s",
-                    },
-                    hover: {
-                      fill: isActive ? "#CCB074" : "#1C1C1A",
-                      opacity: 1,
-                      stroke: isActive ? "#CCB074" : "#2a2a28",
-                      strokeWidth: 0.5,
-                      outline: "none",
-                      cursor: isActive ? "pointer" : "default",
-                    },
-                    pressed: {
-                      fill: isActive ? "#CCB074" : "#1C1C1A",
-                      outline: "none",
-                    },
-                  }}
-                />
-              );
-            })
-          }
-        </Geographies>
-      </ComposableMap>
-
-      {hovered && COUNTRY_NAMES[hovered] && (
-        <div style={{
-          position: "absolute",
-          top: 16,
-          left: "50%",
-          transform: "translateX(-50%)",
-          fontFamily: "var(--font-space-mono)",
-          fontSize: 12,
-          letterSpacing: "0.2em",
-          color: "#EDE8E0",
-          background: "rgba(10,9,8,0.85)",
-          border: "1px solid rgba(184,149,90,0.3)",
-          padding: "6px 16px",
-          textTransform: "uppercase",
-          pointerEvents: "none",
-        }}>
-          {COUNTRY_NAMES[hovered]}
-        </div>
-      )}
     </div>
   );
 }
@@ -214,7 +125,13 @@ export default function GlobalReach() {
           transition={{ duration: 1, delay: 0.15, ease: EASE }}
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}
         >
-          <EuropeMap />
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center", maxWidth: 800, margin: "0 auto" }}>
+            {["🇩🇪 Germany", "🇫🇷 France", "🇮🇹 Italy", "🇪🇸 Spain", "🇧🇪 Belgium", "🇨🇭 Switzerland", "🇳🇱 Netherlands", "🇸🇪 Sweden", "🇩🇰 Denmark", "🇦🇹 Austria", "🇵🇱 Poland", "🇬🇧 United Kingdom"].map((country) => (
+              <span key={country} style={{ padding: "8px 20px", border: "1px solid #B8955A", color: "#B8955A", fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.1em" }}>
+                {country}
+              </span>
+            ))}
+          </div>
           <span style={{
             fontFamily: "var(--font-space-mono)",
             fontSize: 12,
