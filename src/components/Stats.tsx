@@ -35,8 +35,13 @@ export default function Stats() {
         {data.map((d, i) => (
           <div
             key={d.label}
-            className="relative"
-            style={{ borderRight: i < data.length - 1 ? "1px solid rgba(237,232,224,0.06)" : "none" }}
+            className={[
+              "relative",
+              // left-column items always get a right divider
+              i % 2 === 0 && i < data.length - 1 ? "border-r border-r-[rgba(237,232,224,0.06)]" : "",
+              // right-column items only get a right divider at lg (4-col) and only if not last
+              i % 2 === 1 && i < data.length - 1 ? "lg:border-r lg:border-r-[rgba(237,232,224,0.06)]" : "",
+            ].join(" ")}
           >
             <Stat d={d} />
           </div>

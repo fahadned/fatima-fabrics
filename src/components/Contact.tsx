@@ -17,6 +17,7 @@ const fieldStyle: React.CSSProperties = {
   marginBottom: 12,
   outline: "none",
   transition: "border-color 0.3s",
+  boxSizing: "border-box",
 };
 
 function focusIn(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) {
@@ -148,7 +149,7 @@ export default function Contact() {
             <button
               type="submit"
               disabled={submitting}
-              style={{ fontFamily: "var(--font-raleway)", fontSize: 12, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", background: buttonColor === "green" ? "#16a34a" : "#B8955A", color: buttonColor === "green" ? "#fff" : "#0A0908", border: `1px solid ${buttonColor === "green" ? "#16a34a" : "#B8955A"}`, padding: "16px 44px", cursor: submitting ? "wait" : "pointer", opacity: submitting ? 0.7 : 1, transition: "all 0.3s", marginTop: 4 }}
+              style={{ fontFamily: "var(--font-raleway)", fontSize: 12, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", background: buttonColor === "green" ? "#16a34a" : "#B8955A", color: buttonColor === "green" ? "#fff" : "#0A0908", border: `1px solid ${buttonColor === "green" ? "#16a34a" : "#B8955A"}`, padding: "16px 44px", cursor: submitting ? "wait" : "pointer", opacity: submitting ? 0.7 : 1, transition: "all 0.3s", marginTop: 4, width: "100%", boxSizing: "border-box" }}
               onMouseEnter={(e) => { if (!buttonColor) { e.currentTarget.style.background = "#CCB074"; e.currentTarget.style.borderColor = "#CCB074"; e.currentTarget.style.transform = "translateY(-2px)"; } }}
               onMouseLeave={(e) => { if (!buttonColor) { e.currentTarget.style.background = "#B8955A"; e.currentTarget.style.borderColor = "#B8955A"; e.currentTarget.style.transform = "translateY(0)"; } }}
             >

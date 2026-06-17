@@ -193,7 +193,7 @@ function ChapterText({ ch }: { ch: Chapter }) {
   });
 
   return (
-    <div ref={ref} className="flex flex-col justify-center" style={{ padding: "clamp(48px,6vw,100px) clamp(32px,5vw,80px)", background: "#0A0908", height: "100%" }}>
+    <div ref={ref} className="flex flex-col justify-center" style={{ padding: "clamp(24px,6vw,100px) clamp(16px,5vw,80px)", background: "#0A0908", height: "100%" }}>
       <motion.div {...stagger(0)} className="flex items-center" style={{ gap: 14, marginBottom: 20 }}>
         <div style={{ width: 36, height: 1, background: "#B8955A" }} />
         <span style={{ fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.2em", color: "#B8955A", textTransform: "uppercase", whiteSpace: "nowrap" }}>

@@ -19,7 +19,7 @@ function Stage({ s, i }: { s: typeof stages[0]; i: number }) {
   const inView = useInView(ref, { once: true, amount: 0.3 });
 
   return (
-    <div ref={ref} className="relative" style={{ paddingLeft: 56, paddingBottom: i < stages.length - 1 ? 48 : 0 }}>
+    <div ref={ref} className="relative" style={{ paddingLeft: "clamp(40px,5vw,56px)", paddingBottom: i < stages.length - 1 ? "clamp(24px,4vw,48px)" : 0 }}>
       <div className="absolute flex items-center justify-center" style={{ left: 0, top: 2, width: 32, height: 32, borderRadius: "50%", border: "1px solid #B8955A", background: "#0A0908", zIndex: 2 }}>
         <span style={{ fontFamily: "var(--font-space-mono)", fontSize: 10, color: "#B8955A" }}>{s.n}</span>
       </div>

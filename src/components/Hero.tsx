@@ -34,7 +34,7 @@ function HeroStat({ s }: { s: typeof stats[0] }) {
 
   return (
     <div ref={ref} style={{ textAlign: "center" }}>
-      <div style={{ fontFamily: "var(--font-playfair)", fontWeight: 300, fontSize: 48, color: "#B8955A", lineHeight: 1 }}>
+      <div style={{ fontFamily: "var(--font-playfair)", fontWeight: 300, fontSize: "clamp(22px,3.5vw,48px)", color: "#B8955A", lineHeight: 1 }}>
         {s.text ? s.text : <>{count}{s.suffix}</>}
       </div>
       <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 13, fontWeight: 700, letterSpacing: "0.22em", color: "#7A7671", textTransform: "uppercase", marginTop: 14 }}>
@@ -132,7 +132,7 @@ export default function Hero() {
             fontFamily: "var(--font-raleway)",
             fontWeight: 700,
             fontStyle: "italic",
-            fontSize: "clamp(15px,1.2vw,18px)",
+            fontSize: "clamp(13px,2vw,18px)",
             color: "rgba(237,232,224,0.65)",
             maxWidth: 520,
             lineHeight: 1.9,
@@ -191,7 +191,7 @@ export default function Hero() {
       {/* Trust bar — absolutely positioned at bottom, separate from content flow */}
       <motion.div
         {...fadeIn(1, 0.8)}
-        className="absolute flex flex-wrap justify-between"
+        className="absolute hidden sm:flex flex-wrap justify-between"
         style={{
           bottom: 36,
           left: "clamp(24px,5vw,80px)",

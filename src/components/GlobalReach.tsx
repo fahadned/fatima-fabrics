@@ -125,11 +125,16 @@ export default function GlobalReach() {
           transition={{ duration: 1, delay: 0.15, ease: EASE }}
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}
         >
-          <div style={{ width: "100%", maxWidth: 800, margin: "0 auto", position: "relative" }}>
+          <div style={{ width: "100%", maxWidth: 750, margin: "0 auto", padding: "0 20px" }}>
             <img
-              src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag-map_of_Europe.svg"
+              src="/europe-map.svg"
               alt="Europe export markets"
-              style={{ width: "100%", opacity: 0.7, filter: "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.6)" }}
+              style={{
+                width: "100%",
+                height: "auto",
+                filter: "invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.5)",
+                opacity: 0.8,
+              }}
             />
             <div style={{ textAlign: "center", marginTop: 16, fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.15em", color: "#B8955A" }}>
               12+ ACTIVE EXPORT MARKETS ACROSS EUROPE & BEYOND
