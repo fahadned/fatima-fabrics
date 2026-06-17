@@ -42,7 +42,7 @@ export default function Navbar() {
         <img
           src="/logo.png"
           alt="Fatima Fabrics"
-          style={{ height: 100, width: "auto", display: "block" }}
+          style={{ height: "clamp(40px, 6vw, 72px)", width: "auto", display: "block" }}
         />
 
         <div className="hidden md:flex items-center" style={{ gap: 36 }}>

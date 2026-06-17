@@ -125,23 +125,16 @@ export default function GlobalReach() {
           transition={{ duration: 1, delay: 0.15, ease: EASE }}
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}
         >
-          <div style={{ display: "flex", flexWrap: "wrap", gap: 12, justifyContent: "center", maxWidth: 800, margin: "0 auto" }}>
-            {["🇩🇪 Germany", "🇫🇷 France", "🇮🇹 Italy", "🇪🇸 Spain", "🇧🇪 Belgium", "🇨🇭 Switzerland", "🇳🇱 Netherlands", "🇸🇪 Sweden", "🇩🇰 Denmark", "🇦🇹 Austria", "🇵🇱 Poland", "🇬🇧 United Kingdom"].map((country) => (
-              <span key={country} style={{ padding: "8px 20px", border: "1px solid #B8955A", color: "#B8955A", fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.1em" }}>
-                {country}
-              </span>
-            ))}
+          <div style={{ width: "100%", maxWidth: 800, margin: "0 auto", position: "relative" }}>
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/b/b7/Flag-map_of_Europe.svg"
+              alt="Europe export markets"
+              style={{ width: "100%", opacity: 0.7, filter: "sepia(1) saturate(3) hue-rotate(5deg) brightness(0.6)" }}
+            />
+            <div style={{ textAlign: "center", marginTop: 16, fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.15em", color: "#B8955A" }}>
+              12+ ACTIVE EXPORT MARKETS ACROSS EUROPE & BEYOND
+            </div>
           </div>
-          <span style={{
-            fontFamily: "var(--font-space-mono)",
-            fontSize: 12,
-            letterSpacing: "0.2em",
-            color: "#B8955A",
-            textTransform: "uppercase",
-            textAlign: "center",
-          }}>
-            12+ Active Export Markets Across Europe &amp; Beyond
-          </span>
         </motion.div>
 
         {/* MARQUEE BARS */}

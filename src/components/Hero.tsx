@@ -87,7 +87,7 @@ export default function Hero() {
         style={{
           zIndex: 2,
           minHeight: "100vh",
-          padding: "100px clamp(24px,5vw,80px) 160px",
+          padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) clamp(80px,10vw,160px)",
         }}
       >
         {/* 1. Eyebrow */}
@@ -115,7 +115,7 @@ export default function Hero() {
             fontFamily: "var(--font-playfair)",
             fontWeight: 300,
             fontStyle: "italic",
-            fontSize: "clamp(54px,9vw,120px)",
+            fontSize: "clamp(32px,7vw,96px)",
             lineHeight: 0.88,
             letterSpacing: "-0.03em",
             marginBottom: 24,

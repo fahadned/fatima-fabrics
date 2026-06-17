@@ -17,8 +17,8 @@ function Stat({ d }: { d: typeof data[0] }) {
   const count = useCounter(d.end, inView);
 
   return (
-    <div ref={ref} className="flex flex-col items-center justify-center text-center" style={{ paddingTop: 32, paddingBottom: 32, paddingLeft: 20, paddingRight: 20 }}>
-      <div style={{ fontFamily: "var(--font-playfair)", fontWeight: 300, fontSize: 48, color: "#EDE8E0", lineHeight: 1 }}>
+    <div ref={ref} className="flex flex-col items-center justify-center text-center" style={{ paddingTop: "clamp(16px,4vw,32px)", paddingBottom: "clamp(16px,4vw,32px)", paddingLeft: 20, paddingRight: 20 }}>
+      <div style={{ fontFamily: "var(--font-playfair)", fontWeight: 300, fontSize: "clamp(28px,6vw,48px)", color: "#EDE8E0", lineHeight: 1 }}>
         {count}{d.suffix}
       </div>
       <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 13, fontWeight: 700, letterSpacing: "0.22em", color: "#7A7671", textTransform: "uppercase", marginTop: 14 }}>

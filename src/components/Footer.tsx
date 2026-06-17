@@ -9,7 +9,7 @@ const links = [
 
 export default function Footer() {
   return (
-    <footer style={{ background: "#141312", borderTop: "1px solid rgba(237,232,224,0.06)", padding: "44px clamp(24px,5vw,80px) 32px" }}>
+    <footer style={{ background: "#141312", borderTop: "1px solid rgba(237,232,224,0.06)", padding: "clamp(16px,4vw,44px) clamp(24px,5vw,80px) clamp(16px,4vw,32px)" }}>
       <div className="flex flex-col md:flex-row items-center justify-between" style={{ maxWidth: 1200, margin: "0 auto", gap: 24 }}>
         {/* Center */}
         <div style={{ fontFamily: "var(--font-raleway)", fontSize: 11, color: "#7A7671" }}>

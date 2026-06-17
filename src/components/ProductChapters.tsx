@@ -232,7 +232,7 @@ export default function ProductChapters() {
 
   return (
     <section id="products" style={{ background: "#0A0908" }}>
-      <div ref={ref} style={{ padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) 40px" }}>
+      <div ref={ref} style={{ padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) clamp(16px,4vw,40px)" }}>
         <motion.div initial={{ opacity: 0, y: 30 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.9, ease: EASE }} style={{ maxWidth: 600 }}>
           <div className="flex items-center" style={{ gap: 14, marginBottom: 20 }}>
             <div style={{ width: 36, height: 1, background: "#B8955A" }} />
