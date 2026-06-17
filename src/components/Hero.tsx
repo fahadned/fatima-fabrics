@@ -1,8 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { motion, useInView } from "framer-motion";
-import { useCounter } from "@/hooks/useCounter";
+import { motion } from "framer-motion";
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -11,38 +10,6 @@ const fadeUp = (duration: number, delay: number) => ({
   animate: { opacity: 1, y: 0 },
   transition: { duration, delay, ease: EASE },
 });
-
-const fadeIn = (duration: number, delay: number) => ({
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  transition: { duration, delay, ease: EASE },
-});
-
-const stats: { end: number; suffix: string; label: string; text?: string }[] = [
-  { end: 50, suffix: "+", label: "Export Markets" },
-  { end: 4, suffix: "", label: "Product Lines" },
-  { end: 45, suffix: " Days", label: "Minimum Lead Time" },
-  { end: 1000, suffix: "", label: "Minimum MOQ", text: "1,000" },
-  { end: 0, suffix: "", label: "GSM Range", text: "180–1000" },
-  { end: 30, suffix: "+", label: "Years in Business" },
-];
-
-function HeroStat({ s }: { s: typeof stats[0] }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, amount: 0.25 });
-  const count = useCounter(s.end, inView);
-
-  return (
-    <div ref={ref} style={{ textAlign: "center" }}>
-      <div style={{ fontFamily: "var(--font-playfair)", fontWeight: 300, fontSize: "clamp(22px,3.5vw,48px)", color: "#B8955A", lineHeight: 1 }}>
-        {s.text ? s.text : <>{count}{s.suffix}</>}
-      </div>
-      <div style={{ fontFamily: "var(--font-space-mono)", fontSize: 13, fontWeight: 700, letterSpacing: "0.22em", color: "#7A7671", textTransform: "uppercase", marginTop: 14 }}>
-        {s.label}
-      </div>
-    </div>
-  );
-}
 
 export default function Hero() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -87,7 +54,7 @@ export default function Hero() {
         style={{
           zIndex: 2,
           minHeight: "100vh",
-          padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) clamp(80px,10vw,160px)",
+          padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) clamp(40px,6vw,80px)",
         }}
       >
         {/* 1. Eyebrow */}
@@ -187,24 +154,6 @@ export default function Hero() {
           </a>
         </motion.div>
       </div>
-
-      {/* Trust bar — absolutely positioned at bottom, separate from content flow */}
-      <motion.div
-        {...fadeIn(1, 0.8)}
-        className="absolute hidden sm:flex flex-wrap justify-between"
-        style={{
-          bottom: 36,
-          left: "clamp(24px,5vw,80px)",
-          right: "clamp(24px,5vw,80px)",
-          zIndex: 2,
-          borderTop: "1px solid rgba(237,232,224,0.1)",
-          paddingTop: 24,
-        }}
-      >
-        {stats.map((s) => (
-          <HeroStat key={s.label} s={s} />
-        ))}
-      </motion.div>
 
       {/* Bottom gradient */}
       <div
