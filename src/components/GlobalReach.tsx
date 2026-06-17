@@ -2,6 +2,10 @@
 
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import dynamic from "next/dynamic";
+
+const MapChart = dynamic(() => import("./MapChart"), { ssr: false });
+
 const EASE = [0.22, 1, 0.36, 1] as const;
 
 const PLATFORMS = [
@@ -125,17 +129,10 @@ export default function GlobalReach() {
           transition={{ duration: 1, delay: 0.15, ease: EASE }}
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}
         >
-          <div style={{ width: "100%", maxWidth: 750, margin: "0 auto", padding: "0 20px" }}>
-            <img
-              src="/europe-map.svg"
-              alt="Europe export markets"
-              style={{
-                width: "100%",
-                height: "auto",
-                filter: "invert(1) sepia(1) saturate(2) hue-rotate(5deg) brightness(0.5)",
-                opacity: 0.8,
-              }}
-            />
+          <div style={{ width: "100%", maxWidth: 900, margin: "0 auto" }}>
+            <div style={{ width: "100%", height: "clamp(420px, 50vw, 580px)", background: "#0A0908" }}>
+              <MapChart />
+            </div>
             <div style={{ textAlign: "center", marginTop: 16, fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.15em", color: "#B8955A" }}>
               12+ ACTIVE EXPORT MARKETS ACROSS EUROPE & BEYOND
             </div>
