@@ -54,8 +54,6 @@ export default function Stats() {
   return (
     <section
       style={{
-        position: "relative",
-        zIndex: 3,
         background: "#0A0908",
         borderTop: "1px solid rgba(184,149,90,0.2)",
         borderBottom: "1px solid rgba(184,149,90,0.2)",

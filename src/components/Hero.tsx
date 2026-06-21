@@ -21,7 +21,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden" style={{ minHeight: "100vh", background: "#0A0908", marginBottom: "calc(-50vh + 250px)" }}>
+    <section className="relative overflow-hidden" style={{ minHeight: "100vh", background: "#0A0908" }}>
       <video
         ref={videoRef}
         autoPlay
