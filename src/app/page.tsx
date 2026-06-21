@@ -17,12 +17,12 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
+      <Stats />
       <MarqueeTicker />
       <IdentityStatement />
       <VideoSection />
       <ProductChapters />
       <Process />
-      <Stats />
       <Certifications />
       <GlobalReach />
       <Contact />
