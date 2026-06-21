@@ -130,7 +130,11 @@ export default function GlobalReach() {
           style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 24 }}
         >
           <div style={{ width: "100%", maxWidth: 900, margin: "0 auto" }}>
-            <div style={{ width: "100%", height: "clamp(420px, 50vw, 580px)", background: "#0A0908" }}>
+            <div style={{ width: "100%", minHeight: 420, background: "#111110" }} className="map-container">
+              <style>{`
+                .map-container { min-height: 420px; }
+                @media (min-width: 768px) { .map-container { min-height: 600px; } }
+              `}</style>
               <MapChart />
             </div>
             <div style={{ textAlign: "center", marginTop: 16, fontFamily: "var(--font-space-mono)", fontSize: 12, letterSpacing: "0.15em", color: "#B8955A" }}>

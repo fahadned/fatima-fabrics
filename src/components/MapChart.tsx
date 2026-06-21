@@ -1,117 +1,191 @@
 "use client";
 
-import { ComposableMap, Geographies, Geography, Annotation } from "react-simple-maps";
+import { useState, useEffect, useCallback } from "react";
+import {
+  ComposableMap,
+  Geographies,
+  Geography,
+} from "react-simple-maps";
 
-const GEO_URL = "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
+const GEO_URL =
+  "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json";
 
-// Numeric ISO-3166 codes used by world-atlas
-const HIGHLIGHTED = new Set([
-  "826", // United Kingdom
-  "372", // Ireland
-  "276", // Germany
-  "250", // France
-  "528", // Netherlands
-  "56",  // Belgium
-  "724", // Spain
-  "620", // Portugal
-  "380", // Italy
-  "752", // Sweden
-  "208", // Denmark
-  "578", // Norway
-  "616", // Poland
-  "40",  // Austria
-  "756", // Switzerland
-  "203", // Czech Republic
-  "246", // Finland
-  "352", // Iceland
-]);
-
-const LABELS: Array<{ name: string; coords: [number, number] }> = [
-  { name: "UK",          coords: [-2,    53.5] },
-  { name: "Ireland",     coords: [-8,    53.2] },
-  { name: "Germany",     coords: [10.5,  51.2] },
-  { name: "France",      coords: [2.5,   46.5] },
-  { name: "Netherlands", coords: [5.3,   52.4] },
-  { name: "Belgium",     coords: [4.5,   50.5] },
-  { name: "Spain",       coords: [-3.7,  40.4] },
-  { name: "Portugal",    coords: [-8.2,  39.6] },
-  { name: "Italy",       coords: [12.8,  42.5] },
-  { name: "Sweden",      coords: [17,    62.0] },
-  { name: "Denmark",     coords: [10.5,  56.3] },
-  { name: "Norway",      coords: [14,    65.0] },
-  { name: "Poland",      coords: [20,    52.0] },
-  { name: "Austria",     coords: [14.5,  47.5] },
-  { name: "Switzerland", coords: [8.2,   46.8] },
-  { name: "Czech Rep.",  coords: [15.5,  49.8] },
-  { name: "Finland",     coords: [26,    64.5] },
-  { name: "Iceland",     coords: [-19,   65.0] },
-];
+const HIGHLIGHTED_COUNTRIES: Record<string, string> = {
+  "826": "United Kingdom",
+  "372": "Ireland",
+  "276": "Germany",
+  "250": "France",
+  "528": "Netherlands",
+  "56":  "Belgium",
+  "724": "Spain",
+  "620": "Portugal",
+  "380": "Italy",
+  "752": "Sweden",
+  "208": "Denmark",
+  "578": "Norway",
+  "616": "Poland",
+  "40":  "Austria",
+  "756": "Switzerland",
+  "203": "Czech Republic",
+  "246": "Finland",
+};
 
 export default function MapChart() {
-  return (
-    <ComposableMap
-      projection="geoAzimuthalEqualArea"
-      projectionConfig={{ center: [15, 54], scale: 700 }}
-      style={{ width: "100%", height: "100%" }}
-    >
-      <Geographies geography={GEO_URL}>
-        {({ geographies }) =>
-          geographies.map((geo) => {
-            const isHighlighted = HIGHLIGHTED.has(String(geo.id));
-            return (
-              <Geography
-                key={geo.rsmKey}
-                geography={geo}
-                style={{
-                  default: {
-                    fill: isHighlighted ? "#B8955A" : "#1C1A18",
-                    fillOpacity: isHighlighted ? 0.75 : 1,
-                    stroke: isHighlighted ? "#CCB074" : "#2A2724",
-                    strokeWidth: 0.5,
-                    outline: "none",
-                    transition: "fill 0.2s",
-                  },
-                  hover: {
-                    fill: isHighlighted ? "#CCB074" : "#242220",
-                    fillOpacity: 1,
-                    stroke: isHighlighted ? "#CCB074" : "#2A2724",
-                    strokeWidth: 0.5,
-                    outline: "none",
-                  },
-                  pressed: {
-                    fill: isHighlighted ? "#CCB074" : "#1C1A18",
-                    outline: "none",
-                  },
-                }}
-              />
-            );
-          })
-        }
-      </Geographies>
+  const [tooltip, setTooltip] = useState<{
+    name: string;
+    x: number;
+    y: number;
+  } | null>(null);
+  const [canHover, setCanHover] = useState(true);
 
-      {LABELS.map(({ name, coords }) => (
-        <Annotation
-          key={name}
-          subject={coords}
-          dx={0}
-          dy={0}
-          connectorProps={{ stroke: "none", strokeWidth: 0 }}
+  useEffect(() => {
+    setCanHover(window.matchMedia("(hover: hover)").matches);
+  }, []);
+
+  const show = useCallback(
+    (name: string, e: React.MouseEvent | React.TouchEvent) => {
+      const point =
+        "touches" in e ? e.changedTouches[0] : (e as React.MouseEvent);
+      const rect = (
+        e.currentTarget.closest("svg") as SVGSVGElement
+      ).getBoundingClientRect();
+      setTooltip({
+        name,
+        x: point.clientX - rect.left,
+        y: point.clientY - rect.top,
+      });
+    },
+    [],
+  );
+
+  const hide = useCallback(() => setTooltip(null), []);
+
+  return (
+    <div
+      style={{ position: "relative", width: "100%", height: "100%" }}
+      {...(!canHover ? { onClick: hide } : {})}
+    >
+      <ComposableMap
+        projection="geoAzimuthalEqualArea"
+        projectionConfig={{ center: [15, 54], scale: 700 }}
+        width={800}
+        height={600}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <Geographies geography={GEO_URL}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const id = String(geo.id);
+              const name = HIGHLIGHTED_COUNTRIES[id];
+
+              if (!name) {
+                return (
+                  <Geography
+                    key={geo.rsmKey}
+                    geography={geo}
+                    style={{
+                      default: {
+                        fill: "#1C1A18",
+                        stroke: "#2A2724",
+                        strokeWidth: 0.5,
+                        outline: "none",
+                        cursor: "default",
+                      },
+                      hover: {
+                        fill: "#1C1A18",
+                        stroke: "#2A2724",
+                        strokeWidth: 0.5,
+                        outline: "none",
+                        cursor: "default",
+                      },
+                      pressed: {
+                        fill: "#1C1A18",
+                        stroke: "#2A2724",
+                        strokeWidth: 0.5,
+                        outline: "none",
+                        cursor: "default",
+                      },
+                    }}
+                    tabIndex={-1}
+                  />
+                );
+              }
+
+              const handlers: Record<string, (e: any) => void> = {};
+              if (canHover) {
+                handlers.onMouseEnter = (e: React.MouseEvent) => show(name, e);
+                handlers.onMouseLeave = hide;
+              } else {
+                handlers.onClick = (e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  show(name, e);
+                };
+              }
+
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  style={{
+                    default: {
+                      fill: "#B8955A",
+                      fillOpacity: 0.75,
+                      stroke: "#2A2724",
+                      strokeWidth: 0.5,
+                      outline: "none",
+                      cursor: "pointer",
+                      transition: "fill 0.2s",
+                    },
+                    hover: {
+                      fill: "#CCB074",
+                      fillOpacity: 1,
+                      stroke: "#CCB074",
+                      strokeWidth: 0.5,
+                      outline: "none",
+                      cursor: "pointer",
+                    },
+                    pressed: {
+                      fill: "#CCB074",
+                      fillOpacity: 1,
+                      stroke: "#CCB074",
+                      strokeWidth: 0.5,
+                      outline: "none",
+                      cursor: "pointer",
+                    },
+                  }}
+                  {...handlers}
+                />
+              );
+            })
+          }
+        </Geographies>
+      </ComposableMap>
+
+      {tooltip && (
+        <div
+          style={{
+            position: "absolute",
+            left: tooltip.x,
+            top: tooltip.y - 40,
+            transform: "translateX(-50%)",
+            background: "rgba(10, 9, 8, 0.95)",
+            border: "1px solid #B8955A",
+            color: "#EDE8E0",
+            fontFamily: "var(--font-playfair), 'Playfair Display', serif",
+            fontStyle: "italic",
+            fontSize: 18,
+            letterSpacing: "0.04em",
+            padding: "8px 14px",
+            borderRadius: 2,
+            boxShadow: "0 2px 8px rgba(0,0,0,0.4)",
+            pointerEvents: "none",
+            whiteSpace: "nowrap",
+            zIndex: 10,
+          }}
         >
-          <text
-            textAnchor="middle"
-            dominantBaseline="central"
-            style={{
-              fontFamily: "'Space Mono', monospace",
-              fontSize: 9,
-              fill: "#ffffff",
-              fillOpacity: 0.85,
-              pointerEvents: "none",
-            }}
-          >
-            {name}
-          </text>
-        </Annotation>
-      ))}
-    </ComposableMap>
+          {tooltip.name}
+        </div>
+      )}
+    </div>
   );
 }
