@@ -54,7 +54,7 @@ export default function Hero() {
         style={{
           zIndex: 2,
           minHeight: "100vh",
-          padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) clamp(40px,6vw,80px)",
+          padding: "clamp(60px,8vw,100px) clamp(24px,5vw,80px) clamp(24px,3vw,40px)",
         }}
       >
         {/* 1. Eyebrow */}
@@ -158,7 +158,7 @@ export default function Hero() {
       {/* Bottom gradient */}
       <div
         className="absolute bottom-0 left-0 right-0 pointer-events-none"
-        style={{ height: 200, background: "linear-gradient(to top, #0A0908, transparent)", zIndex: 1 }}
+        style={{ height: 100, background: "linear-gradient(to top, #0A0908, transparent)", zIndex: 1 }}
       />
     </section>
   );

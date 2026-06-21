@@ -21,7 +21,7 @@ function StatCard({ s }: { s: typeof stats[0] }) {
   return (
     <div
       ref={ref}
-      className="flex flex-col items-center justify-center text-center py-8 px-4"
+      className="flex flex-col items-center justify-center text-center py-5 px-4"
     >
       <div
         style={{
@@ -62,15 +62,7 @@ export default function Stats() {
     >
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
         {stats.map((s, i) => (
-          <div
-            key={s.label}
-            className={[
-              "relative",
-              i < stats.length - 1
-                ? "border-r border-r-[rgba(184,149,90,0.15)]"
-                : "",
-            ].join(" ")}
-          >
+          <div key={s.label}>
             <StatCard s={s} />
           </div>
         ))}
